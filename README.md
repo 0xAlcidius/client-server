@@ -5,6 +5,9 @@ This repository is created to test the different ways a client on ESXi would beh
 When the ESXi hypervisor tries to run the C client to connect to the server, it can connect, but only when the firewall is either down or has a rule that allows the port the client connects to to have a connection to the outside world.
 ![overview](img/client-server-c-ESXi.png)
 
+After either creating a rule or shutting down the firewall, the TCP handshake can be performed and the application can run.
+![overview](img/client-server-c-esxi-wireshark.png)
+
 ## Golang
 Currently when the ESXi hypervisor tries to run the Golang client to connect to the server, the following problem will occur. Even though the firewall has been completely shut down.
 ![overview](img/client-server-go-server-ESXi-problem-1.png)

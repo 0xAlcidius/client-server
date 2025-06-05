@@ -8,23 +8,23 @@ import (
 )
 
 func main() {
-	listener, err := net.Listen("tcp", ":12345")
+	listener, err := net.Listen("tcp", ":1234")
 	if err != nil {
-		fmt.Println("Fout bij starten van server:", err)
+		fmt.Println("Error starting server:", err)
 		os.Exit(1)
 	}
 	defer listener.Close()
 
-	fmt.Println("Server luistert op poort 12345...")
+	fmt.Println("Listening on port 1234...")
 
 	conn, err := listener.Accept()
 	if err != nil {
-		fmt.Println("Fout bij accepteren van verbinding:", err)
+		fmt.Println("Error accepting connection:", err)
 		return
 	}
 	defer conn.Close()
 
-	fmt.Println("Client verbonden:", conn.RemoteAddr())
+	fmt.Println("Client connected:", conn.RemoteAddr())
 
 	clientReader := bufio.NewReader(conn)
 	stdinReader := bufio.NewReader(os.Stdin)
@@ -32,16 +32,16 @@ func main() {
 	for {
 		message, err := clientReader.ReadString('\n')
 		if err != nil {
-			fmt.Println("Client heeft verbinding verbroken.")
+			fmt.Println("Client has disconnected.")
 			break
 		}
-		fmt.Print("Client zegt:", message)
+		fmt.Print("Client says:", message)
 
-		fmt.Print("Antwoord: ")
+		fmt.Print("Reply: ")
 		reply, _ := stdinReader.ReadString('\n')
 		_, err = conn.Write([]byte(reply))
 		if err != nil {
-			fmt.Println("Fout bij verzenden van antwoord:", err)
+			fmt.Println("Error sending reply:", err)
 			break
 		}
 	}
